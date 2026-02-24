@@ -27,8 +27,11 @@
       box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #404040;
     }
     #myImage {
-      width: 20px;
-      height: 20px;
+      display: flex;
+      align-items: flex-start; /* 上揃え（Windows風） */
+      gap: 10px;
+      width: 32px;
+      height: 32px;
       object-fit: contain;
     
     }
@@ -53,7 +56,6 @@
     エラーが発生しました。<br>
     再起動してください。
   <button class="win-old-btn" onclick="window.close()">OK</button>
-  <h6 id="time"></h6>
 
   <script>
     window.onload = function () {
@@ -72,7 +74,6 @@ console.log("cos =", cos);
       document.getElementById("myImage").src = url;
 
       const timeStr = params.get('time'); 
-      document.getElementById("time").textContent = timeStr || "なし";
 
       if (timeStr) {
         const timeArray = timeStr.split(':').map(x => parseInt(x, 10));
