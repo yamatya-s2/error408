@@ -25,9 +25,39 @@ window.onload = function() {
 <body>
 
 <img id="myImage">
-
+<button class="win-old-btn"onclick="window.close()">OK</button>
 
 </body>
+<style>
+.win-old-btn {
+  background: #c0c0c0; /* Windowsグレー背景 */
+  border: 2px outset #fff; /* 浮き上がった枠線 */
+  padding: 5px 20px;
+  font-family: "Tahoma", sans-serif;
+  font-size: 18px;
+  color: black;
+  cursor: pointer;
+  outline: none;
+
+  box-shadow:
+    inset 1px 1px 0 #fff,
+    inset -1px -1px 0 #404040;
+  position: relative;
+  user-select: none;
+  transition: none;
+}
+
+
+/* クリック時の凹み効果 */
+.win-old-btn:active {
+  border-style: inset;
+  box-shadow:
+    inset -1px -1px 0 #fff,
+    inset 1px 1px 0 #404040;
+}
+
+  
+</style>
 <script>
 const list = time.split(",");
 checkTime(list);
