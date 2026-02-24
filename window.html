@@ -6,6 +6,9 @@
   <title>Error Window</title>
   <style>
     .win-old-btn {
+      position: absolute;
+      top: 100px;
+      left: 220px;
       background: #c0c0c0;
       border: 2px outset #fff;
       padding: 5px 20px;
@@ -35,49 +38,42 @@
     window.onload = function () {
       const params = new URLSearchParams(window.location.search);
 
-      // 画像座標とタイプ
       const xp = Number(params.get('xp'));
       const yp = Number(params.get('yp'));
-      const type = params.get('type');
+      const cos = params.get('cos');
 
-      // ウィンドウ移動とサイズ変更
       const x = (xp + 240) / 480 * window.innerWidth;
       const y = (yp + 180) / 360 * window.innerHeight;
       window.resizeTo(300, 140);
       window.moveTo(x, y);
 
-      // 画像セット
-      const url = `https://yamatya-s2.github.io/error408/window_images/${type}.png`;
+      const url = `https://yamatya-s2.github.io/error408/window_images/${cos}.png`;
       document.getElementById("myImage").src = url;
 
-      const timeStr = params.get('time'); // 例: "2026:2:24:20:5:10:100"
+      const timeStr = params.get('time'); 
       document.getElementById("time").textContent = timeStr || "なし";
 
       if (timeStr) {
-        // ":"で分割して数値配列に変換
         const timeArray = timeStr.split(':').map(x => parseInt(x, 10));
 
-        // Dateオブジェクトを作成（不足値は0で補完、月は0始まり）
         const targetDate = new Date(
-          timeArray[0] || new Date().getFullYear(),  // 年
-          (timeArray[1] ? timeArray[1] - 1 : 0),    // 月（0始まり）
-          timeArray[2] || 1,                        // 日（省略時は1日）
-          timeArray[3] || 0,                        // 時
-          timeArray[4] || 0,                        // 分
-          timeArray[5] || 0,                        // 秒
-          timeArray[6] || 0                         // ミリ秒
+          timeArray[0] || new Date().getFullYear(),  
+          (timeArray[1] ? timeArray[1] - 1 : 0),    
+          timeArray[2] || 1,                        
+          timeArray[3] || 0,                        
+          timeArray[4] || 0,                        
+          timeArray[5] || 0,                        
+          timeArray[6] || 0                         
         );
 
         const now = new Date();
         const diff = targetDate - now;
 
         if (diff > 0) {
-          // 指定時刻まで待ってからウィンドウを閉じる
           setTimeout(() => {
             window.close();
           }, diff);
         } else {
-          // すでに過ぎていた場合は即座に閉じる
           window.close();
         }
       }
