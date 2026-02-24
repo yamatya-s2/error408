@@ -5,13 +5,16 @@ window.onload = function() {
     const params = new URLSearchParams(window.location.search);
 
     // パラメータを変数に代入
-    const user = params.get('user'); // "alice"
-    const id = params.get('id');     // "123"
+    const x = params.get('xp') / 240 *window.innerWidth;
+    const y = params.get('yp') / 180 *window.innerHeight;    
+    const type = params.get('type');
+    window.resizeTo(300, 140);
+    const url = `https://yamatya-s2.github.io/error408/window_images/${type}.png`;
+    document.getElementById("myImage").src = url;
+  };
 
 
-    // 画面上に表示
-    document.getElementById('output').textContent = `ユーザー: ${user}, ID: ${id}`;
-};
+    
 </script>
   <head>
     <html lang="ja">
@@ -20,8 +23,37 @@ window.onload = function() {
   </head>
 <body>
 
-
+<img id="myImage">
 
 
 </body>
+<script>
+const list = time.split(",");
+checkTime(list);
+
+function checkTime(list) {
+  const now = new Date();
+
+  const currentSeconds =
+    now.getHours() * 3600 +
+    now.getMinutes() * 60 +
+    now.getSeconds();
+
+  const targetSeconds =
+    list[0] * 3600 +
+    list[1] * 60 +
+    list[2];
+
+  if (currentSeconds >= targetSeconds) {
+    remove();
+  }
+}
+
+  remove(){
+    window.close();
+  }
+
+    
+  
+  <\script>
 </html>
