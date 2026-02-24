@@ -47,21 +47,34 @@
       const url = `https://yamatya-s2.github.io/error408/window_images/${type}.png`;
       document.getElementById("myImage").src = url;
 
-      // 時間表示とチェック
-      const timeStr = params.get('time'); // 例: "14:30:00"
-      document.getElementById("time").textContent = timeStr;
-      checkTime(timeStr);
-    };
+    const timeStr = params.get('time'); // 例: "2026:2:24:20:5:10:100"
+    document.getElementById("time").textContent = timeStr || "なし";
 
-    function checkTime(timeStr) {
+    if (timeStr) {
+      // ":"で分割して数値配列に変換
+      const timeArray = timeStr.split(':').map(x => parseInt(x, 10));
+
+      // Dateオブジェクトを作成（不足値は0で補完、月は0始まり）
+      const targetDate = new Date(
+        timeArray[0] || new Date().getFullYear(),  // 年
+        (timeArray[1] ? timeArray[1] - 1 : 0),    // 月（0始まり）
+        timeArray[2] || 1,                        // 日（省略時は1日）
+        timeArray[3] || 0,                        // 時
+        timeArray[4] || 0,                        // 分
+        timeArray[5] || 0,                        // 秒
+        timeArray[6] || 0                         // ミリ秒
+      );
+
       const now = new Date();
-      const [hh, mm, ss] = timeStr.split(':').map(Number);
+      const diff = targetDate - now;
 
-      let target = new Date();
-      target.setHours(hh, mm, ss, 0);
-
-      // もしもう過ぎていたら即閉じる
-      if (now >= target) {
+      if (diff > 0) {
+        // 指定時刻まで待ってからウィンドウを閉じる
+        setTimeout(() => {
+          window.close();
+        }, diff);
+      } else {
+        // すでに過ぎていた場合は即座に閉じる
         window.close();
       }
     }
