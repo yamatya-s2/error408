@@ -1,86 +1,70 @@
 <!DOCTYPE html>
-<html>
-  <script>
-window.onload = function() {
-    const params = new URLSearchParams(window.location.search);
-
-    // パラメータを変数に代入
-    const x = (params.get('xp')+240) / 480  *window.innerWidth;
-    const y = (params.get('yp')+180) / 360  *window.innerHeight;    
-    const type = params.get('type');
-    window.resizeTo(300, 140);
-    Window.moveTo(x, y);
-    const url = `https://yamatya-s2.github.io/error408/window_images/${type}.png`;
-    document.getElementById("myImage").src = url;
-  };
-
-
-    
-</script>
-  <head>
-    <html lang="ja">
-    <meta charset="UTF-8">
-    <title>Hello,World</title>
-  </head>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Error Window</title>
+  <style>
+    .win-old-btn {
+      background: #c0c0c0;
+      border: 2px outset #fff;
+      padding: 5px 20px;
+      font-family: "Tahoma", sans-serif;
+      font-size: 18px;
+      color: black;
+      cursor: pointer;
+      outline: none;
+      box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #404040;
+      user-select: none;
+      transition: none;
+    }
+    .win-old-btn:active {
+      border-style: inset;
+      box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #404040;
+    }
+  </style>
+</head>
 <body>
+  <img id="myImage">
+  <button class="win-old-btn" onclick="window.close()">OK</button>
+  <h6 id="time"></h6>
 
-<img id="myImage">
-<button class="win-old-btn"onclick="window.close()">OK</button>
-<h6 id="time"></h6>
+  <script>
+    window.onload = function() {
+      const params = new URLSearchParams(window.location.search);
+
+      // 画像座標とタイプ
+      const xp = Number(params.get('xp'));
+      const yp = Number(params.get('yp'));
+      const type = params.get('type');
+
+      // ウィンドウ移動とサイズ変更
+      const x = (xp + 240) / 480 * window.innerWidth;
+      const y = (yp + 180) / 360 * window.innerHeight;
+      window.resizeTo(300, 140);
+      window.moveTo(x, y);
+
+      // 画像セット
+      const url = `https://yamatya-s2.github.io/error408/window_images/${type}.png`;
+      document.getElementById("myImage").src = url;
+
+      // 時間表示とチェック
+      const timeStr = params.get('time'); // 例: "14:30:00"
+      document.getElementById("time").textContent = timeStr;
+      checkTime(timeStr);
+    };
+
+    function checkTime(timeStr) {
+      const now = new Date();
+      const [hh, mm, ss] = timeStr.split(':').map(Number);
+
+      let target = new Date();
+      target.setHours(hh, mm, ss, 0);
+
+      // もしもう過ぎていたら即閉じる
+      if (now >= target) {
+        window.close();
+      }
+    }
+  </script>
 </body>
-<style>
-.win-old-btn {
-  background: #c0c0c0; /* Windowsグレー背景 */
-  border: 2px outset #fff; /* 浮き上がった枠線 */
-  padding: 5px 20px;
-  font-family: "Tahoma", sans-serif;
-  font-size: 18px;
-  color: black;
-  cursor: pointer;
-  outline: none;
-
-  box-shadow:
-    inset 1px 1px 0 #fff,
-    inset -1px -1px 0 #404040;
-  position: relative;
-  user-select: none;
-  transition: none;
-}
-
-
-/* クリック時の凹み効果 */
-.win-old-btn:active {
-  border-style: inset;
-  box-shadow:
-    inset -1px -1px 0 #fff,
-    inset 1px 1px 0 #404040;
-}
-
-  
-</style>
-<script>
-const params = new URLSearchParams(window.location.search);
-const time = params.get('time')
-  document.getElementById("time").textContent = time;
-checkTime(time);
-
-function checkTime(list) {
-  const now = new Date();
-
-  const currentSeconds =
-    now.getDate() * 216000 +
-    now.getHours() * 3600 +
-    now.getMinutes() * 60 +
-    now.getSeconds();
-
-
-  if (currentSeconds >= time ) {
-    window.close();
-  }
-}
-
-
-    
-  
-</script>
 </html>
