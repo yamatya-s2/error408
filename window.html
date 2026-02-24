@@ -26,7 +26,7 @@ window.onload = function() {
 
 <img id="myImage">
 <button class="win-old-btn"onclick="window.close()">OK</button>
-
+<h6 type="time"></h6>
 </body>
 <style>
 .win-old-btn {
@@ -60,6 +60,7 @@ window.onload = function() {
 </style>
 <script>
 const time = params.get('time')
+  document.getElementById("time").textContent = time;
 checkTime(time);
 
 function checkTime(list) {
