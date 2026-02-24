@@ -59,6 +59,7 @@ window.onload = function() {
   
 </style>
 <script>
+const params = new URLSearchParams(window.location.search);
 const time = params.get('time')
   document.getElementById("time").textContent = time;
 checkTime(time);
