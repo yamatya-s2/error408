@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
   <meta charset="UTF-8">
   <title>Error Window</title>
@@ -17,19 +18,21 @@
       user-select: none;
       transition: none;
     }
+
     .win-old-btn:active {
       border-style: inset;
       box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #404040;
     }
   </style>
 </head>
+
 <body>
   <img id="myImage">
   <button class="win-old-btn" onclick="window.close()">OK</button>
   <h6 id="time"></h6>
 
   <script>
-    window.onload = function() {
+    window.onload = function () {
       const params = new URLSearchParams(window.location.search);
 
       // 画像座標とタイプ
@@ -47,37 +50,37 @@
       const url = `https://yamatya-s2.github.io/error408/window_images/${type}.png`;
       document.getElementById("myImage").src = url;
 
-    const timeStr = params.get('time'); // 例: "2026:2:24:20:5:10:100"
-    document.getElementById("time").textContent = timeStr || "なし";
+      const timeStr = params.get('time'); // 例: "2026:2:24:20:5:10:100"
+      document.getElementById("time").textContent = timeStr || "なし";
 
-    if (timeStr) {
-      // ":"で分割して数値配列に変換
-      const timeArray = timeStr.split(':').map(x => parseInt(x, 10));
+      if (timeStr) {
+        // ":"で分割して数値配列に変換
+        const timeArray = timeStr.split(':').map(x => parseInt(x, 10));
 
-      // Dateオブジェクトを作成（不足値は0で補完、月は0始まり）
-      const targetDate = new Date(
-        timeArray[0] || new Date().getFullYear(),  // 年
-        (timeArray[1] ? timeArray[1] - 1 : 0),    // 月（0始まり）
-        timeArray[2] || 1,                        // 日（省略時は1日）
-        timeArray[3] || 0,                        // 時
-        timeArray[4] || 0,                        // 分
-        timeArray[5] || 0,                        // 秒
-        timeArray[6] || 0                         // ミリ秒
-      );
+        // Dateオブジェクトを作成（不足値は0で補完、月は0始まり）
+        const targetDate = new Date(
+          timeArray[0] || new Date().getFullYear(),  // 年
+          (timeArray[1] ? timeArray[1] - 1 : 0),    // 月（0始まり）
+          timeArray[2] || 1,                        // 日（省略時は1日）
+          timeArray[3] || 0,                        // 時
+          timeArray[4] || 0,                        // 分
+          timeArray[5] || 0,                        // 秒
+          timeArray[6] || 0                         // ミリ秒
+        );
 
-      const now = new Date();
-      const diff = targetDate - now;
+        const now = new Date();
+        const diff = targetDate - now;
 
-      if (diff > 0) {
-        // 指定時刻まで待ってからウィンドウを閉じる
-        setTimeout(() => {
+        if (diff > 0) {
+          // 指定時刻まで待ってからウィンドウを閉じる
+          setTimeout(() => {
+            window.close();
+          }, diff);
+        } else {
+          // すでに過ぎていた場合は即座に閉じる
           window.close();
-        }, diff);
-      } else {
-        // すでに過ぎていた場合は即座に閉じる
-        window.close();
+        }
       }
     };
   </script>
 </body>
-</html>
