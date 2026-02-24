@@ -59,8 +59,8 @@ window.onload = function() {
   
 </style>
 <script>
-const list = time.split(",");
-checkTime(list);
+const time = params.get('time')
+checkTime(time);
 
 function checkTime(list) {
   const now = new Date();
@@ -71,13 +71,8 @@ function checkTime(list) {
     now.getMinutes() * 60 +
     now.getSeconds();
 
-  const targetSeconds =
-    list[0] * 216000 +
-    list[1] * 3600 +
-    list[2] * 60 +
-    list[3];
 
-  if (currentSeconds >= targetSeconds) {
+  if (currentSeconds >= time ) {
     window.close();
   }
 }
