@@ -1,1 +1,27 @@
-test
+<!DOCTYPE html>
+<html>
+  <script>
+window.onload = function() {
+    const params = new URLSearchParams(window.location.search);
+
+    // パラメータを変数に代入
+    const user = params.get('user'); // "alice"
+    const id = params.get('id');     // "123"
+
+
+    // 画面上に表示
+    document.getElementById('output').textContent = `ユーザー: ${user}, ID: ${id}`;
+};
+</script>
+  <head>
+    <html lang="ja">
+    <meta charset="UTF-8">
+    <title>Hello,World</title>
+  </head>
+<body>
+
+
+
+
+</body>
+</html>
