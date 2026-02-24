@@ -26,35 +26,37 @@
       border-style: inset;
       box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #404040;
     }
-    #myImage {
-      display: flex;
-      align-items: flex-start; /* 上揃え（Windows風） */
-      gap: 10px;
-      width: 32px;
-      height: 32px;
-      object-fit: contain;
-    
-    }
-    
-  .error-text {
-    display: flex;
-    align-items: flex-start; /* 上揃え（Windows風） */
-    gap: 10px;
-    text-align: left;       /* 左寄せ */
-    font-family: Tahoma, sans-serif;
-    font-size: 14px;
-    line-height: 1.4;
-    max-width: 200px;       /* 折り返し幅 */
-  }
+.error-row {
+  display: flex;
+  align-items: flex-start;  /* 上揃え（Windows風） */
+  gap: 10px;                /* 画像と文字の間隔 */
+}
+
+#myImage {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.error-text {
+  text-align: left;         /* ← ここが重要 */
+  font-family: Tahoma, sans-serif;
+  font-size: 14px;
+  line-height: 1.4;
+  max-width: 220px;         /* 長文折り返し用 */
+}
     
   </style>
 </head>
 
 <body>
+<div class="error-row">
   <img id="myImage">
-   <div class="error-text">
+  <div class="error-text">
     エラーが発生しました。<br>
     再起動してください。
+  </div>
+</div>
   <button class="win-old-btn" onclick="window.close()">OK</button>
 
   <script>
