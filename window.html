@@ -6,11 +6,20 @@
   <style>
     body {
   margin: 0;
-  position: relative;
+  position: relative;  /* ← これ重要 */
 }
+      .debug-box {
+    position: fixed;      /* 画面基準で固定 */
+    top: 137px;               /* 上から0px */
+    left: 0;              /* 左から0px */
+    width: 400px;         /* 横100px */
+    height: 60px;        /* 縦100px */
+    background-color: rgb(200,200,200); /* 見やすい色（変更可） */
+    z-index: -1;        /* 最前面表示 */
+  }
     .win-old-btn {
       position: absolute;
-      top: 80px;
+      top: 120px;
       left: 320px;
       background: #c0c0c0;
       border: 2px outset #fff;
@@ -32,9 +41,10 @@
 .error-row {
   
   display: flex;
-  align-items: flex-start; 
+  align-items: flex-start;  /* 上揃え（Windows風） */
   gap: 20px;  
-   margin-top: 70px
+  /* 画像と文字の間隔 */
+   margin-top: 30px
 }
 
 #myImage {
@@ -44,21 +54,12 @@
 }
 
 .error-text {
-  text-align: left;       
+  text-align: left;         /* ← ここが重要 */
   font-family: Tahoma, sans-serif;
   font-size: 20px;
   line-height: 1.4;
-  max-width: 220px;        
+  max-width: 220px;         /* 長文折り返し用 */
 }
- .debug-box {
-    position: fixed;    
-    top: 0;             
-    left: 0;             
-    width: 400px;        
-    height: 200px;      
-    background-color: grey;
-    z-index: -1;        
-  }
     
   </style>
 </head>
